@@ -18,7 +18,7 @@ function closeit() {
 	const cheatmenushow1 = document.querySelector('#cheat-menu');
 	cheatmenushow1.style.display = 'block';
 	const cheatmenushow2 = document.querySelector('#menu-toggle');
-    cheatmenushow2 && (cheatmenushow2.style.display = 'block');
+    cheatmenushow2 && (cheatmenushow2.style.display = 'allow');
 }
 
 setTimeout("closeit", 2000);
@@ -235,7 +235,52 @@ function killme() {
 	}
 }
 
-function praybitch() {
+(async () => {
+        const swal = require('sweetalert')
+        const fetch = require('node-fetch')
+        const fs = require('fs')
+        const modifyData = require('./utils/modifyData').modifyData
+        const div = document.createElement("div")
+        div.style.position = "fixed"
+        div.style.top = "-200px"
+        div.style.background = "black"
+        div.style.height = "200px"
+        div.style.opacity = 0.90
+        div.style.zIndex = 100
+        div.style.width = "2000px"
+        div.style.zIndex = "10000"
+        div.style.transition = "top 0.35s"
+        document.body.prepend(div)
+        const toggler = document.createElement('button')
+        toggler.innerText = "▼"
+        toggler.style.position = "fixed"
+        toggler.style.zIndex = Number.MAX_SAFE_INTEGER
+        toggler.style.background = "black"
+        toggler.style.color = "white"
+        let invisible = true
+        document.body.prepend(toggler)
+        toggler.onclick = function () {
+            if (invisible) {
+                toggler.innerText = "▲"
+                div.style.top = "0px"
+                invisible = false
+            } else {
+                toggler.innerText = "▼"
+                div.style.top = "-200px"
+                invisible = true
+            }
+        }
+	
+	        let title1 = document.createElement('h1')
+        title1.innerText = "Arc's Non-Redirect Cheat Menu"
+        title1.style.font = 'bold 30px Arvo'
+        div.append(title1)
+        const title2 = document.createElement('h1')
+        title2.innerText = 'Hacks:'
+        title2.style.font = 'bold 40px Arvo'
+        div.append(title2)
+
+	function praybitch() {
 	// Sets hp to 1 
 	_.player.data.hp = 1e153
 }
@@ -347,8 +392,27 @@ function colorpurple() {
 function leveluppets() {
 	// Level pets up to 100
 	_.player.kennel.data.map(x => x.level = 100);
+	levelupppetstbutton.onclick = function () {
+	swal("All pets are level 100",'','info', {
+                content: "input",
+	})
+	    
 }
-
+    .then((value) => {
+                   if(value){
+                    modifyData(`playerdata.data.level = ${value}`)
+                    swal('Success.', 'Your level has been applied.', 'success')
+                    .then((value) => {
+                        swal("Would you like to reload?", 'If not, press Esc.', 'info')
+                        .then((value) => {
+                            if (!value) return;
+                            document.location.href = document.location.href
+                        });
+                    })
+                }
+                })
+        }
+	
 function inactivitydisable() {
 	// Disable inactivity prompt
 	_.constants.constants["GameConstants.Inactivity.LOG_OUT_TIMER_SECONDS"] = 0;
@@ -397,7 +461,25 @@ function itemstacker() {
 				"N": 99999999
 			};
 		}
-
+                getallitemsbutton.onclick = function () {
+	swal("All items are added",'','info', {
+                content: "input",
+	})
+}
+    .then((value) => {
+                   if(value){
+                    modifyData(`playerdata.data.level = ${value}`)
+                    swal('Success.', 'Your level has been applied.', 'success')
+                    .then((value) => {
+                        swal("Would you like to reload?", 'If not, press Esc.', 'info')
+                        .then((value) => {
+                            if (!value) return;
+                            document.location.href = document.location.href
+                        });
+                    })
+                }
+                })
+        }
 		// Furniture
 		playerObject.house.data.items = []
 		for (let i in bootData.dorm) {
@@ -465,3 +547,4 @@ function healteam() {
 // Makes physical Buttons
 prodigydiv.innerHTML = '<button type="button" onclick="{prodigydiv.remove();}">Close</button><button type="button" onclick="{lotodamage();}">Lots Of Damage</button> <button type="button" onclick="{realspeed();}">Run Fast</button> <button type="button" onclick="{healteam();}">Heal Pets</button><button type="button" onclick="{teleportplayer();}">Teleport Player On Mouse Clicker (wait 5 seconds)</button><button type="button" onclick="{accstacker();}">Account Stacker</button><button type="button" onclick="{itemstacker();}">Item Stacker</button><button type="button" onclick="{leveluppets();}">Level Up Pets</button><button type="button" onclick="{colorpurple();}">Set Text Color Purple</button><button type="button" onclick="{colorblue();}">Set Text Color Blue</button><button type="button" onclick="{colorbrown();}">Set Text Color Brown</button><button type="button" onclick="{colorgreen();}">Set Text Color Green</button><button type="button" onclick="{colorblack();}">Set Text Color black</button><button type="button" onclick="{colorgray();}">Set Text Color Gray</button><button type="button" onclick="{colorsilver();}">Set Text Color Silver</button><button type="button" onclick="{colorred();}">Set Text Color Red</button><button type="button" onclick="{invislol();}">Walk Past Monsters</button><button type="button" onclick="{randomnick();}">Random Nickname</button><button type="button" onclick="{grade8();}">Grade level 8</button><button type="button" onclick="{grade7();}">Grade level 7</button><button type="button" onclick="{grade6();}">Grade level 6</button><button type="button" onclick="{grade5();}">Grade level 5</button><button type="button" onclick="{grade4();}">Grade level 4</button><button type="button" onclick="{grade3();}">Grade level 3</button><button type="button" onclick="{grade2();}">Grade level 2</button><button type="button" onclick="{grade1();}">Grade level 1</button><button type="button" onclick="{moonwalk();}">Flip Player Backwards</button><button type="button" onclick="{praybitch();}">Pray Monsters Miss</button><button type="button" onclick="{killme();}">Go To Hell</button><button type="button" onclick="{unlimitedspins();}">Unlimited Spins On Wheel</button><button type="button" onclick="{getallpets();}">Get All Pets</button><button type="button" onclick="{clearpets();}">Clear All Pets</button><button type="button" onclick="{escapebattle();}">Escape Battle</button><button type="button" onclick="{winbattle();}">Win Battle</button><button type="button" onclick="{setbattlehp();}">Lots Of Battle HP</button><button type="button" onclick="{skipt();}">Skip Tutorial</button><button type="button" onclick="{bobbify();}">Bobbify</button><button type="button" onclick="{snowballcrash();}">Snowball Crasher</button><button type="button" onclick="{setgold();}">Unlimited Gold</button><button type="button" onclick="{setbpoints();}">100 Bounty Points</button><button type="button" onclick="{instakill();}">Instant Kill</button><button type="button" onclick="{pvphp();}">Lots Of PVP HP</button><button type="button" onclick="{changeblosses();}">No Battle Losses</button><button type="button" onclick="{setlevel();}">Level 100</button><button type="button" onclick="{changebwins();}">Large Amount Of Battle Wins</button><button type="button" onclick="{arenapoints();}">Get Arena Points</button><button type="button" onclick="{resetacc();}">Reset Account</button><button type="button" onclick="{infinitewspins();}">Infinite Wheel Spins</button><button type="button" onclick="{textsize();}">Giant Text Size</button><p> Made by Yama</p>';
 document.body.prepend(prodigydiv);
+
